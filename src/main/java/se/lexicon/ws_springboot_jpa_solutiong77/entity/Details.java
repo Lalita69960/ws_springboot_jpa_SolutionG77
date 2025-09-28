@@ -30,6 +30,6 @@ public class Details {
     LocalDate birthDate;
 
 
-
+//
 
 }

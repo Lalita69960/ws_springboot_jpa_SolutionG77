@@ -17,4 +17,6 @@ public interface DetailsRepository extends JpaRepository<Details, Integer> {
 
     // Find by name ignoring case
     List<Details> findByNameIgnoreCase(String name);
+
+    //
 }
