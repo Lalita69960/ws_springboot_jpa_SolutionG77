@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface BookLoanRepository extends JpaRepository<BookLoan,Integer> {
 
-
+//
     List<BookLoan> findByBorrowerId(int borrowerId);
 
     List<BookLoan> findByBookId(int bookId);

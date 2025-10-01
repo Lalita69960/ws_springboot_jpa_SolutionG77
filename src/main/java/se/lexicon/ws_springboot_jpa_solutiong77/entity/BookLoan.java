@@ -13,6 +13,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+//@RequiredArgsConstructor
 @ToString
 public class BookLoan {
     @Id
@@ -26,12 +27,14 @@ public class BookLoan {
     private boolean returned=false;
 
 @ManyToOne(cascade = CascadeType.ALL)
-@JoinColumn(name="borrow_id",nullable = false)
+@JoinColumn(name="borrower_id",nullable = false)
     private AppUser borrower;
 
 @ManyToOne(cascade = CascadeType.ALL)
 @JoinColumn(name="book_id",nullable = false)
     private Book book;
+
+
 
 
     private void onCreate() {

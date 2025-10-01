@@ -17,7 +17,7 @@ public interface AuthorRepository extends JpaRepository<Author,Integer> {
 
     List<Author> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String fn, String ln);
 
-    @Query("select a from Author a join a.books b where b.id = :bookId")
+    @Query("select a from Author a join a.writtenBooks b where b.id = :bookId")
     List<Author> findByBookId(@Param("bookId") int bookId);
 
     @Transactional

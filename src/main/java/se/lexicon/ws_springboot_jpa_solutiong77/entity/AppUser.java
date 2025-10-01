@@ -5,7 +5,9 @@ import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,6 +37,10 @@ public class AppUser {
     @Setter
    private Details userDetails;
 
+    @OneToMany(mappedBy = "borrower", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<BookLoan> loans = new HashSet<>();
+
+
     public AppUser(String username, String password) {
         this.username = username;
         this.password = password;
@@ -48,16 +54,30 @@ public class AppUser {
 
    }
 
+
+    public void addLoan(BookLoan loan) {
+        loans.add(loan);
+        loan.setBorrower(this);
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof AppUser appUser)) return false;
-        return id == appUser.id && Objects.equals(username, appUser.username) && Objects.equals(password, appUser.password) && Objects.equals(regDate, appUser.regDate) && Objects.equals(userDetails, appUser.userDetails);
+        if (o == null || getClass() != o.getClass()) return false;
+        AppUser appUser = (AppUser) o;
+        return id == appUser.id && Objects.equals(username, appUser.username) && Objects.equals(password, appUser.password) && Objects.equals(regDate, appUser.regDate) && Objects.equals(userDetails, appUser.userDetails) && Objects.equals(loans, appUser.loans);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, regDate, userDetails);
+        return Objects.hash(id, username, password, regDate, userDetails, loans);
     }
 
+    public void removeLoan(BookLoan loan) {
+        loans.remove(loan);
+        if (loan.getBorrower() == this) {
+            loan.setBorrower(null);
+        }
 
+
+    }
 }

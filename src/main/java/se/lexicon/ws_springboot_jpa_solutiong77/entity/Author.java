@@ -11,6 +11,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @ToString(exclude = "books")
 
 public class Author {
@@ -25,17 +26,21 @@ public class Author {
     @NonNull
     private String lastName;
 
-   @ManyToMany
+   @ManyToMany(cascade = CascadeType.ALL)
    @JoinTable( // OneToMany x2
-           name = "students_courses", //name of the join Table
+           name = "author_books", //name of the join Table
            joinColumns = @JoinColumn(name= "author_id"), // Owning Side
            inverseJoinColumns = @JoinColumn(name ="book_id") // Target Entity
    )
-   private Set<Book> books = new HashSet<>();
+   private Set<Book> writtenBooks = new HashSet<>();
+
+    public void addBook(Book book) {
+        writtenBooks.add(book);
+    }
+
+    public void removeBook(Book book) {
+        writtenBooks.remove(book);
 
 
-
-
-
-
+    }
 }

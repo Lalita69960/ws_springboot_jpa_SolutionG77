@@ -25,6 +25,7 @@ public class Details {
 
     @NonNull
     String name;
+    //
 
     @NonNull
     LocalDate birthDate;

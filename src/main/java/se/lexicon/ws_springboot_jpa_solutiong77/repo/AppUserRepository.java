@@ -20,5 +20,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 
     // Find by email inside Details (case-insensitive)
     Optional<AppUser> findByUserDetails_EmailIgnoreCase(String email);
-//
+
 }
